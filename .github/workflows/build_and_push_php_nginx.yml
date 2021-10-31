@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Build and push php-nginx containers
 
 on:
   workflow_dispatch:
@@ -24,7 +24,8 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         build-args: PHP_VERSION=${{ matrix.php_version }}
-        context: .
+        context: nginx-php
+        file: nginx-php/Dockerfile
         load: true
         tags: local/php-ngninx:${{ matrix.php_version }}
     - name: Test
@@ -35,6 +36,8 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         build-args: PHP_VERSION=${{ matrix.php_version }}
+        context: nginx-php
+        file: nginx-php/Dockerfile
         push: true
         platforms: linux/amd64,linux/arm64
         tags: kosar/nginx-php:${{ matrix.php_version }}
