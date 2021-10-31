@@ -30,7 +30,7 @@ jobs:
         tags: local/php-ngninx:${{ matrix.php_version }}
     - name: Test
       run: |
-        docker run --rm local/php-ngninx:${{ matrix.php_version }}
+        docker run --rm --stop-timeout 20 local/php-ngninx:${{ matrix.php_version }}
     - name: Build and push
       id: docker_build
       uses: docker/build-push-action@v2
