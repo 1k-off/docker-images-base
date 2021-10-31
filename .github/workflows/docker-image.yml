@@ -1,0 +1,40 @@
+name: Docker Image CI
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+    - 'nginx-php/**'
+    
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php_version: [5.6, 7.0, 7.1, 7.2, 7.3, 7.4]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and export to Docker
+      uses: docker/build-push-action@v2
+      with:
+        build-args: PHP_VERSION=${{ matrix.php_version }}
+        context: .
+        load: true
+        tags: local/php-ngninx:${{ matrix.php_version }}
+    - name: Test
+      run: |
+        docker run --rm local/php-ngninx:${{ matrix.php_version }}
+    - name: Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        build-args: PHP_VERSION=${{ matrix.php_version }}
+        push: true
+        platforms: linux/amd64,linux/arm64
+        tags: kosar/nginx-php:${{ matrix.php_version }}
