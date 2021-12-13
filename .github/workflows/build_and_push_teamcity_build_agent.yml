@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        agent_version: ['net5.0-base']
+        base_agent_version: ['net5.0-base', 'android-base']
     steps:
     - uses: actions/checkout@v2
     - name: Set up QEMU
@@ -27,8 +27,8 @@ jobs:
       id: docker_build
       uses: docker/build-push-action@v2
       with:
-        context: teamcity-build-agent/${{ matrix.agent_version }}
-        file: teamcity-build-agent/${{ matrix.agent_version }}/Dockerfile
+        context: teamcity-build-agent/${{ matrix.base_agent_version }}
+        file: teamcity-build-agent/${{ matrix.base_agent_version }}/Dockerfile
         push: true
         platforms: linux/amd64
-        tags: 1node/teamcity-build-agent:${{ matrix.agent_version }}
+        tags: 1node/teamcity-build-agent:${{ matrix.base_agent_version }}
