@@ -6,7 +6,7 @@ ENV DOCKER_IN_DOCKER="start"
 ENV ANDROID_HOME="/opt/android"
 ENV SDK_VERSION="7583922"
 RUN apt update && apt upgrade -y
-RUN apt install sudo wget; \
+RUN apt install sudo jq wget; \
     mkdir -p ${ANDROID_HOME}
 WORKDIR ${ANDROID_HOME}
 RUN wget https://dl.google.com/android/repository/commandlinetools-linux-${SDK_VERSION}_latest.zip; \

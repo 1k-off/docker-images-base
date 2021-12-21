@@ -5,7 +5,7 @@ USER root
 ENV PATH="$PATH:/root/.dotnet/tools"
 ENV DOCKER_IN_DOCKER="start"
 RUN apt update && apt upgrade -y
-RUN apt install -y gnupg apt-transport-https ca-certificates python3-pip sudo wget && \
+RUN apt install -y gnupg apt-transport-https ca-certificates python3-pip sudo jq wget && \
     wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb && \
     rm packages-microsoft-prod.deb && \
