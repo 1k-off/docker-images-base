@@ -12,7 +12,7 @@ RUN apt install -y gnupg apt-transport-https ca-certificates python3-pip sudo jq
     apt-get update && \
     apt-get install -y aspnetcore-runtime-5.0 aspnetcore-runtime-5.0 
 RUN dotnet tool install --global Amazon.Lambda.Tools && \
-    pip3 install awsebcli --upgrade
+    pip3 install awscli awsebcli --upgrade
 RUN curl -L "https://github.com/github-release/github-release/releases/download/$(curl --silent "https://api.github.com/repos/github-release/github-release/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')/linux-amd64-github-release.bz2" -o /tmp/linux-amd64-github-release.bz2 && \
     bzip2 -dc /tmp/linux-amd64-github-release.bz2 > /usr/local/bin/github-release  && \
     rm /tmp/linux-amd64-github-release.bz2 && \
