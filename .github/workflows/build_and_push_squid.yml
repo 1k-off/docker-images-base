@@ -28,4 +28,4 @@ jobs:
         file: squid-proxy/Dockerfile
         push: true
         platforms: linux/amd64,linux/arm64
-        tags: kosar/nginx-php:latest
+        tags: kosar/squid:latest
