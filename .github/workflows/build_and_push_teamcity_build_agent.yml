@@ -7,11 +7,8 @@ on:
     - 'teamcity-build-agent/**'
 
 jobs:
-  build:
+  build-base:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        base_agent_version: ['net5.0-base', 'android-base']
     steps:
     - uses: actions/checkout@v2
     - name: Set up QEMU
@@ -23,12 +20,39 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build and push
-      id: docker_build
+    - name: Build and push base
+      id: docker_build_base
       uses: docker/build-push-action@v2
       with:
-        context: teamcity-build-agent/${{ matrix.base_agent_version }}
-        file: teamcity-build-agent/${{ matrix.base_agent_version }}/Dockerfile
+        context: teamcity-build-agent/base
+        file: teamcity-build-agent/base/Dockerfile
         push: true
         platforms: linux/amd64
-        tags: 1node/teamcity-build-agent:${{ matrix.base_agent_version }}
+        tags: 1node/teamcity-build-agent:base
+
+  build:
+    runs-on: ubuntu-latest
+    needs: build-base
+    strategy:
+      matrix:
+        agent_version: ['net5', 'net6', 'dotnet-full', 'android-base']
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1    
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push matrix
+      id: docker_build_agents
+      uses: docker/build-push-action@v2
+      with:
+        context: teamcity-build-agent/${{ matrix.agent_version }}
+        file: teamcity-build-agent/${{ matrix.agent_version }}/Dockerfile
+        push: true
+        platforms: linux/amd64
+        tags: 1node/teamcity-build-agent:${{ matrix.agent_version }}
