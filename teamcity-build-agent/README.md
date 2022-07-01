@@ -1,9 +1,12 @@
 # teamcity-agent
-![svg image](data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pjxzdmcgdmlld0JveD0iMCAwIDQwIDQwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0aXRsZS8+PGcgaWQ9IkRvY2tlciI+PHBhdGggZD0iTTMyLjY2LDE5LjM3QTQuMTIsNC4xMiwwLDAsMCwyOS41NywxOWE0LDQsMCwwLDAtMS42OC0yLjYzbC0uMzQtLjI2LS4yNy4zM0EzLjYzLDMuNjMsMCwwLDAsMjYuNjEsMTlhMy41OSwzLjU5LDAsMCwwLC42MSwxLjY4Yy0uMjcuMTQtLjYxLjI3LS44OC40MWE1LjY3LDUuNjcsMCwwLDEtMS44MS4yNkg3LjExTDcsMjEuNzNhNy41OCw3LjU4LDAsMCwwLC42MSwzLjgzbC4yNi40N3YuMDdjMS42MiwyLjY5LDQuNTEsMy45LDcuNjcsMy45LDYsMCwxMS0yLjYyLDEzLjM4LTguMjcsMS41NS4wNywzLjEtLjM0LDMuODQtMS44MmwuMi0uMzNabS0yMC40NCw3QTEuNDEsMS40MSwwLDAsMSwxMC44MSwyNWExLjQxLDEuNDEsMCwwLDEsMi44MiwwQTEuNDEsMS40MSwwLDAsMSwxMi4yMiwyNi4zN1pNMjAuODksMThIMTguMjd2Mi42MmgyLjYyWm0wLTMuMjlIMTguMjd2Mi42MmgyLjYyWm0wLTMuMzdIMTguMjd2Mi42M2gyLjYyWk0yNC4xMiwxOEgyMS41djIuNjJoMi42MlptLTkuNzUsMEgxMS43NXYyLjYyaDIuNjJWMThabTMuMywwSDE1djIuNjJoMi42M1ptLTYuNTMsMEg4LjUydjIuNjJoMi42MlYxOFptNi41My0zLjI5SDE1djIuNjJoMi42M1ptLTMuMywwSDExLjc1djIuNjJoMi42MlYxNC42N1oiLz48L2c+PC9zdmc+) https://hub.docker.com/r/1node/teamcity-build-agent  
+https://hub.docker.com/r/1node/teamcity-build-agent  
 
 # Featured tags
-- `net5.0-base` - teamcity agent with pre-installed dotnet 5.0, aws lambda tools, aws cli, github releases.
+- `base` - teamcity agent with pre-installedaws lambda tools, aws cli, github releases.
 - `android-base` - teamcity agent with pre-installed android sdk, nodejs 16.x, github-releases.
+- `net5` - teamcity agent with pre-installed dotnet 5 and `base` features.
+- `net6` - teamcity agent with pre-installed dotnet 6 and `base` features.
+- `dotnet-full` - teamcity agent with pre-installed dotnet core 2.2, 3.1, dotnet 5, 6 and `base` features.
 
 **Note: This repo does not publish or maintain a latest tag. Please declare a specific tag when pulling or referencing images from this repo.**
 # Description
