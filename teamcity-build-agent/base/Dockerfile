@@ -14,8 +14,7 @@ RUN curl -L "https://github.com/github-release/github-release/releases/download/
     rm /tmp/linux-amd64-github-release.bz2 && \
     chmod +x /usr/local/bin/github-release
 RUN rm -f /usr/local/bin/docker-compose && \
-    curl -L "https://github.com/docker/compose/releases/download/$(curl --silent "https://api.github.com/repos/docker/compose/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)
-".*/\1/')/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose && \
+    curl -L "https://github.com/docker/compose/releases/download/$(curl --silent "https://api.github.com/repos/docker/compose/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose && \
     chmod +x /usr/local/bin/docker-compose
 RUN echo 'buildagent     ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 COPY docker-entrypoint.sh /docker-entrypoint.sh
