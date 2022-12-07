@@ -4,7 +4,7 @@ LABEL description="docker dind, awsebcli, lambda-tools, github releases"
 USER root
 ENV DOCKER_IN_DOCKER="start"
 RUN apt update && apt upgrade -y
-RUN apt install -y gnupg apt-transport-https ca-certificates python3-pip sudo jq wget software-properties-common
+RUN apt install -y gnupg apt-transport-https ca-certificates python3-pip sudo jq wget software-properties-common rsync
 RUN add-apt-repository --yes --update ppa:ansible/ansible
 RUN apt install -y ansible
 RUN dotnet tool install --global Amazon.Lambda.Tools && \
