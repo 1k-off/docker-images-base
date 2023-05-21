@@ -7,6 +7,10 @@ RUN PHP_VER_MAJ="$(echo $PHP_VERSION | head -c 1)"; \
         echo "Old PHP versions are not supported by this Dockerfile. Please, use before8.Dockerfile."; \
         exit 1; \
     fi;
+# Fix https://lists.debian.org/debian-devel-announce/2023/03/msg00006.html
+RUN sed -i s/deb.debian.org/archive.debian.org/g /etc/apt/sources.list; \
+    sed -i 's|security.debian.org|archive.debian.org/|g' /etc/apt/sources.list; \
+    sed -i '/stretch-updates/d' /etc/apt/sources.list
 # persistent dependencies
 RUN set -eux; \
 	apt-get update; \
