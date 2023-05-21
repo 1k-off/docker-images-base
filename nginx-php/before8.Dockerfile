@@ -1,10 +1,11 @@
 ARG PHP_VERSION
 FROM php:$PHP_VERSION-fpm
 LABEL maintainer="Bogdan Kosarevskyi <kosar@1node.xyz>"
+
 # Run version check
 RUN PHP_VER_MAJ="$(echo $PHP_VERSION | head -c 1)"; \
-    if [ "$PHP_VER_MAJ" -lt "8" ]; then \
-        echo "Old PHP versions are not supported by this Dockerfile. Please, use before8.Dockerfile."; \
+    if [ "$PHP_VER_MAJ" -gt "7" ]; then \
+        echo "New PHP versions are not supported by this Dockerfile. Please, use Dockerfile."; \
         exit 1; \
     fi;
 # persistent dependencies
@@ -31,7 +32,12 @@ RUN set -ex; \
 		libpng-dev \
                 libzip-dev \
 	; \
-        docker-php-ext-configure gd --with-freetype=/usr --with-jpeg=/usr; \
+        PHP_VER="$(echo $PHP_VERSION | head -c 3)"; \
+        if [ "$PHP_VER" = "7.4" ]; then \
+            docker-php-ext-configure gd --with-freetype=/usr --with-jpeg=/usr; \
+        else \
+            docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr --with-png-dir=/usr; \
+        fi; \
 	docker-php-ext-install -j "$(nproc)" \
 		bcmath \
 		exif \
@@ -41,7 +47,7 @@ RUN set -ex; \
 		pdo_mysql \
 		zip \
 	; \
-	pecl install imagick; \
+	pecl install imagick-3.4.4; \
 	docker-php-ext-enable imagick; \
 	\
 # reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
