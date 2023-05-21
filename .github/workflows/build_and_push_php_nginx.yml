@@ -5,7 +5,7 @@ on:
   push:
     paths:
     - 'nginx-php/**'
-
+jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
