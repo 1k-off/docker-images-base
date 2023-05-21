@@ -1,8 +1,8 @@
 # nginx-php
 # Featured tags
-- `8.0` - nginx, php7.4-fpm, pre-installed php-modules, cron, supervisor
-- `8.1` - nginx, php7.4-fpm, pre-installed php-modules, cron, supervisor
-- `8.2` - nginx, php7.4-fpm, pre-installed php-modules, cron, supervisor
+- `8.0` - nginx, php8.0-fpm, pre-installed php-modules, cron, supervisor
+- `8.1` - nginx, php8.1-fpm, pre-installed php-modules, cron, supervisor
+- `8.2` - nginx, php8.2-fpm, pre-installed php-modules, cron, supervisor
 
 ## Existing, but without updates
 - `5.6` - nginx, php5.6-fpm, pre-installed php-modules, cron, supervisor
