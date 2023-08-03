@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM php:$PHP_VERSION-fpm
+FROM php:$PHP_VERSION-fpm-alpine
 LABEL maintainer="Bogdan Kosarevskyi <kosar@1node.xyz>"
 # Run version check
 RUN PHP_VER_MAJ="$(echo $PHP_VERSION | head -c 1)"; \
@@ -7,32 +7,20 @@ RUN PHP_VER_MAJ="$(echo $PHP_VERSION | head -c 1)"; \
         echo "Old PHP versions are not supported by this Dockerfile. Please, use before8.Dockerfile."; \
         exit 1; \
     fi;
-# Fix https://lists.debian.org/debian-devel-announce/2023/03/msg00006.html
-RUN sed -i s/deb.debian.org/archive.debian.org/g /etc/apt/sources.list; \
-    sed -i 's|security.debian.org|archive.debian.org/|g' /etc/apt/sources.list; \
-    sed -i '/stretch-updates/d' /etc/apt/sources.list
 # persistent dependencies
 RUN set -eux; \
-	apt-get update; \
-	apt-get install -y --no-install-recommends \
+	apk update; \
+	apk add --no-cache \
 # Ghostscript is required for rendering PDF previews
 		ghostscript \
                 supervisor \
-                cron \
-                nginx \
-	; \
-	rm -rf /var/lib/apt/lists/*
-
-RUN set -ex; \
-	\
-	savedAptMark="$(apt-mark showmanual)"; \
-	\
-	apt-get update; \
-	apt-get install -y --no-install-recommends \
-		libfreetype6-dev \
-		libjpeg-dev \
-		libmagickwand-dev \
+                nginx
+RUN  apk add --no-cache \
+		freetype-dev \
 		libpng-dev \
+		jpeg-dev \
+		libjpeg-turbo-dev \
+		imagemagick-dev \
                 libzip-dev \
 	; \
         docker-php-ext-configure gd --with-freetype=/usr --with-jpeg=/usr; \
@@ -48,22 +36,14 @@ RUN set -ex; \
 	pecl install imagick; \
 	docker-php-ext-enable imagick; \
 	\
-# reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
-	apt-mark auto '.*' > /dev/null; \
-	apt-mark manual $savedAptMark; \
 	ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
 		| awk '/=>/ { print $3 }' \
 		| sort -u \
 		| xargs -r dpkg-query -S \
 		| cut -d: -f1 \
 		| sort -u \
-		| xargs -rt apt-mark manual; \
-	\
-	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
-	rm -rf /var/lib/apt/lists/*
-
-RUN set -eux; \
-	docker-php-ext-enable opcache; \
+		| xargs -rt apt-mark manual
+RUN docker-php-ext-enable opcache; \
 	{ \
 		echo 'opcache.memory_consumption=128'; \
 		echo 'opcache.interned_strings_buffer=8'; \
