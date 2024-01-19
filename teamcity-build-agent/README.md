@@ -2,11 +2,13 @@
 https://hub.docker.com/r/1node/teamcity-build-agent  
 
 # Featured tags
-- `base` - teamcity agent with pre-installedaws lambda tools, aws cli, github releases.
-- `android-base` - teamcity agent with pre-installed android sdk, nodejs 16.x, github-releases.
+- `base` - teamcity agent with pre-installed aws lambda tools, aws cli, GitHub releases.
+- `android-base` - teamcity agent with pre-installed android sdk, Node.js 16.x, github-releases.
 - `net5` - teamcity agent with pre-installed dotnet 5 and `base` features.
 - `net6` - teamcity agent with pre-installed dotnet 6 and `base` features.
-- `dotnet-full` - teamcity agent with pre-installed dotnet core 2.2, 3.1, dotnet 5, 6 and `base` features.
+- `net7` - teamcity agent with pre-installed dotnet 7 and `base` features.
+- `net8` - teamcity agent with pre-installed dotnet 8 and `base` features.
+- `dotnet-full` - teamcity agent with pre-installed dotnet core 2.2, 3.1, dotnet 5, 6, 7, 8 and `base` features.
 
 **Note: This repo does not publish or maintain a latest tag. Please declare a specific tag when pulling or referencing images from this repo.**
 # Description
