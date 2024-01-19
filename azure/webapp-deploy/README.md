@@ -1,5 +1,5 @@
 # Azure webapp deploy
-Like github action, but in docker.
+Like GitHub action, but in docker.
 
 Official website: https://github.com/Azure/webapps-deploy
 

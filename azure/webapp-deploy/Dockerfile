@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:18-alpine
 ENV RUNNER_TEMP "/tmp"
 WORKDIR /tmp
 RUN apk update && apk add --no-cache curl wget unzip

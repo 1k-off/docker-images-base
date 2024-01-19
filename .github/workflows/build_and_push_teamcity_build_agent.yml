@@ -10,19 +10,19 @@ jobs:
   build-base:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2
+      uses: docker/setup-qemu-action@v3
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      uses: docker/setup-buildx-action@v3
     - name: Login to DockerHub
-      uses: docker/login-action@v2
+      uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build and push base
       id: docker_build_base
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v5
       with:
         context: teamcity-build-agent/base
         file: teamcity-build-agent/base/Dockerfile
@@ -37,19 +37,19 @@ jobs:
       matrix:
         agent_version: ['net5', 'net6', 'net7', 'net8', 'dotnet-full']
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2
+      uses: docker/setup-qemu-action@v3
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      uses: docker/setup-buildx-action@v3
     - name: Login to DockerHub
-      uses: docker/login-action@v2
+      uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build and push matrix
       id: docker_build_agents
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v5
       with:
         context: teamcity-build-agent/${{ matrix.agent_version }}
         file: teamcity-build-agent/${{ matrix.agent_version }}/Dockerfile
