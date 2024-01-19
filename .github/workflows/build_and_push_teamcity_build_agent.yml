@@ -35,7 +35,7 @@ jobs:
     needs: build-base
     strategy:
       matrix:
-        agent_version: ['net5', 'net6', 'net7', 'net8', 'dotnet-full', 'android-base']
+        agent_version: ['net5', 'net6', 'net7', 'net8', 'dotnet-full']
     steps:
     - uses: actions/checkout@v3
     - name: Set up QEMU
