@@ -2,12 +2,11 @@
 https://hub.docker.com/r/1node/teamcity-build-agent  
 
 # Featured tags
-- `base` - teamcity agent with pre-installed aws lambda tools, aws cli, GitHub releases.
-- `net5` - teamcity agent with pre-installed dotnet 5 and `base` features.
-- `net6` - teamcity agent with pre-installed dotnet 6 and `base` features.
-- `net7` - teamcity agent with pre-installed dotnet 7 and `base` features.
+- `base` - teamcity agent with pre-installed ansible, GitHub releases.
 - `net8` - teamcity agent with pre-installed dotnet 8 and `base` features.
-- `dotnet-full` - teamcity agent with pre-installed dotnet core 2.2, 3.1, dotnet 5, 6, 7, 8 and `base` features.
+- `net9` - teamcity agent with pre-installed dotnet 9 and `base` features.
+- `dotnet-full` - teamcity agent with pre-installed dotnet 8, 9 and `base` features.
+- `dotnet-full-unsup-included` - teamcity agent with pre-installed dotnet core 2.1, 2.2, 3.1, dotnet 5, 6, 7, 8, 9 and `base` features.
 
 **Note: This repo does not publish or maintain a latest tag. Please declare a specific tag when pulling or referencing images from this repo.**
 # Description
@@ -31,3 +30,17 @@ You can also provide your agent's name using -e AGENT_NAME="". If this variable 
 When you run the agent for the first time, you should authorize it via the TeamCity server UI: go to the Unauthorized Agents page in your browser. See more details. All information about agent authorization is stored in the agent's configuration folder. If you stop the container with the agent and then start a new one with the same config folder, the agent's name and authorization state will be preserved.
 
 A TeamCity agent does not need manual upgrade: it will upgrade itself automatically on connecting to an upgraded server.
+
+## docker compose  example
+```
+services:
+  teamcity-agent-1:
+    image: 1node/teamcity-build-agent:dotnet-full
+    privileged: true
+    restart: always
+    environment:
+      - DOCKER_IN_DOCKER=start
+      - SERVER_URL=https://teamcity.domain.tld
+      - AGENT_NAME=linux-docker-dotnet-full-default
+```
+

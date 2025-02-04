@@ -7,5 +7,6 @@ Contains docker images that can be useful in work.
 [GLPI](glpi/README.md)  
 [Nginx with php-fpm](nginx-php/README.md)  
 [Proxmox vma extractor](proxmox-vma-extractor/README.md)  
-[Squid proxy](squid-proxy/README.md)  
+[Segger IDE & emBuild](segger/README.md)
+[Squid proxy](squid-proxy/README.md)
 [Teamcity build agent](teamcity-build-agent/README.md)  

@@ -35,7 +35,7 @@ jobs:
     needs: build-base
     strategy:
       matrix:
-        agent_version: ['net5', 'net6', 'net7', 'net8', 'dotnet-full']
+        agent_version: ['net8', 'net9', 'dotnet-full', 'dotnet-full-unsup-included']
     steps:
     - uses: actions/checkout@v4
     - name: Set up QEMU
@@ -54,5 +54,5 @@ jobs:
         context: teamcity-build-agent/${{ matrix.agent_version }}
         file: teamcity-build-agent/${{ matrix.agent_version }}/Dockerfile
         push: true
-        platforms: linux/amd64,linux/arm64/v8
+        platforms: linux/amd64
         tags: 1node/teamcity-build-agent:${{ matrix.agent_version }}
