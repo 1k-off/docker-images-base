@@ -22,13 +22,8 @@ RUN wget https://download.visualstudio.microsoft.com/download/pr/0ddc1522-2361-4
     tar xzvf dotnet-sdk-7.0.410-linux-x64.tar.gz -C /usr/share/dotnet/ && \
     rm -f dotnet-sdk-7.0.410-linux-x64.tar.gz
 ENV PATH="$PATH:/root/.dotnet/tools"
-RUN wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
-    dpkg -i packages-microsoft-prod.deb && \
-    rm packages-microsoft-prod.deb && \
-    apt-get update && \
-    apt-get install -y dotnet-sdk-6.0 dotnet-sdk-8.0 dotnet-sdk-9.0 powershell
-RUN echo "alias powershell='pwsh'" >> .bashrc && \
-    alias powershell='pwsh'
+RUN add-apt-repository -y ppa:dotnet/backports
+RUN apt-get install -y dotnet-sdk-8.0 dotnet-sdk-9.0
 USER buildagent
 WORKDIR /home/buildagent
 ENTRYPOINT ["/docker-entrypoint.sh"]

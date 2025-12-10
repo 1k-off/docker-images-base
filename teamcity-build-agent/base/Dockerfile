@@ -14,6 +14,11 @@ RUN curl -L "https://github.com/github-release/github-release/releases/download/
     chmod +x /usr/local/bin/github-release
 RUN rm -f /usr/local/bin/docker-compose && \
     apt install -y docker-compose-plugin
+RUN wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.13/powershell_7.4.13-1.deb_amd64.deb && \
+    dpkg -i powershell_7.4.13-1.deb_amd64.deb && \
+    rm powershell_7.4.13-1.deb_amd64.deb
+RUN echo "alias powershell='pwsh'" >> .bashrc && \
+    alias powershell='pwsh'
 RUN echo 'buildagent     ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
