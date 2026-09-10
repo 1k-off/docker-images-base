@@ -23,7 +23,7 @@ RUN wget https://download.visualstudio.microsoft.com/download/pr/0ddc1522-2361-4
     rm -f dotnet-sdk-7.0.410-linux-x64.tar.gz
 ENV PATH="$PATH:/root/.dotnet/tools"
 RUN add-apt-repository -y ppa:dotnet/backports
-RUN apt-get install -y dotnet-sdk-8.0 dotnet-sdk-9.0
+RUN apt-get install -y dotnet-sdk-8.0 dotnet-sdk-9.0 dotnet-sdk-10.0
 USER buildagent
 WORKDIR /home/buildagent
 ENTRYPOINT ["/docker-entrypoint.sh"]

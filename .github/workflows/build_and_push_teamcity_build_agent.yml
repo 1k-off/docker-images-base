@@ -35,7 +35,7 @@ jobs:
     needs: build-base
     strategy:
       matrix:
-        agent_version: ['net8', 'net9', 'dotnet-full', 'dotnet-full-unsup-included']
+        agent_version: ['net10', 'dotnet-full', 'dotnet-full-unsup-included']
     steps:
     - uses: actions/checkout@v4
     - name: Set up QEMU
